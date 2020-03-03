@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import springbook.user.dao.DUserDao;
 import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
@@ -20,7 +21,7 @@ public class TestUserDao {
 
     @Test
     public void addUser() {
-        UserDao dao = new UserDao();
+        UserDao dao = new DUserDao();
         try {
             dao.add(this.user);
         } catch (ClassNotFoundException e) {
@@ -32,15 +33,11 @@ public class TestUserDao {
     }
 
     @After
-    public void clean() {
-        UserDao dao = new UserDao();
-        try {
-            dao.delete(user.getId());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(true);
+    public void clean() throws SQLException, ClassNotFoundException {
+        UserDao dao = new DUserDao();
+
+        dao.delete(user.getId());
+
+        Assert.assertNotNull(dao.get(user.getId()));
     }
 }

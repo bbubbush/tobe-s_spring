@@ -4,7 +4,7 @@ import springbook.user.domain.User;
 
 import java.sql.*;
 
-public class UserDao {
+public abstract class UserDao {
 
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection c = this.getConnection();
@@ -50,8 +50,5 @@ public class UserDao {
         ps.close();
         c.close();
     }
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver");
-        return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
-    }
+    abstract public Connection getConnection() throws ClassNotFoundException, SQLException;
 }
