@@ -34,6 +34,13 @@ public class TestUserDao {
     @After
     public void clean() {
         UserDao dao = new UserDao();
-
+        try {
+            dao.delete(user.getId());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(true);
     }
 }

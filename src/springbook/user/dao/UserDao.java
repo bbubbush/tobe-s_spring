@@ -2,10 +2,7 @@ package springbook.user.dao;
 
 import springbook.user.domain.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao {
 
@@ -21,6 +18,39 @@ public class UserDao {
         ps.executeUpdate();
         ps.close();
         c.close();
+    }
 
+    public User get(String id) throws ClassNotFoundException, SQLException {
+        Class.forName("org.h2.Driver");
+        Connection c = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+        PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
+
+        ps.setString(1, id);
+
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        User user = new User();
+        user.setId(rs.getString("id"));
+        user.setName(rs.getString("name"));
+        user.setPassword(rs.getString("password"));
+
+        ps.executeUpdate();
+        ps.close();
+        c.close();
+
+        return user;
+    }
+
+    public void delete(String id) throws ClassNotFoundException, SQLException {
+        Class.forName("org.h2.Driver");
+        Connection c = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+        PreparedStatement ps = c.prepareStatement("delete from USERS where id = ?");
+
+        ps.setString(1, id);
+
+        ps.executeUpdate();
+
+        ps.close();
+        c.close();
     }
 }
