@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import springbook.user.dao.DConnectionMaker;
 import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
@@ -20,7 +21,7 @@ public class TestUserDao {
 
     @Test
     public void addUser() {
-        UserDao dao = new UserDao();
+        UserDao dao = new UserDao(new DConnectionMaker());
         try {
             dao.add(this.user);
         } catch (ClassNotFoundException e) {
@@ -33,7 +34,7 @@ public class TestUserDao {
 
     @After
     public void clean() throws SQLException, ClassNotFoundException {
-        UserDao dao = new UserDao();
+        UserDao dao = new UserDao(new DConnectionMaker());
 
         dao.delete(user.getId());
 
