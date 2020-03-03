@@ -5,10 +5,10 @@ import springbook.user.domain.User;
 import java.sql.*;
 
 public class UserDao {
-    private SimpleConnectionMaker simpleConnectionMaker;
+    private ConnectionMaker simpleConnectionMaker;
 
     public UserDao() {
-        simpleConnectionMaker = new SimpleConnectionMaker();
+        simpleConnectionMaker = new DConnectionMaker();
     }
 
 

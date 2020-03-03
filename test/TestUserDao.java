@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import springbook.user.dao.DUserDao;
 import springbook.user.dao.UserDao;
 import springbook.user.domain.User;
 
@@ -34,7 +33,7 @@ public class TestUserDao {
 
     @After
     public void clean() throws SQLException, ClassNotFoundException {
-        UserDao dao = new DUserDao();
+        UserDao dao = new UserDao();
 
         dao.delete(user.getId());
 
